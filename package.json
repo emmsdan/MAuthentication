@@ -4,7 +4,8 @@
   "description": "basic authentication for emmsdan global ",
   "main": "app.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node src/app.js"
   },
   "repository": "https://gitlab.com/emmsdan/authententication.git",
   "author": "Emmanuel Daniel <ecomje@gmail.com>",
