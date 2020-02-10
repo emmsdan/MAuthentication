@@ -9,7 +9,7 @@
     "test": "jest ./src/**",
     "dev": "nodemon --exec babel-node -- src/bin/api.js",
     "build": "rimraf dist && ./node_modules/.bin/babel src -d dist",
-    "lint": "eslint ./**.js --fix --ignore-path .gitignore"
+    "lint": "eslint ./src/**.js --fix"
   },
   "repository": "https://gitlab.com/emmsdan/authententication.git",
   "author": "Emmanuel Daniel <ecomje@gmail.com>",
