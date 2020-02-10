@@ -1,21 +1,14 @@
 module.exports = {
   "extends": [
     "plugin:jest/all",
-    "eslint:recommended",
-    "plugin:import/warnings",
-    "plugin:import/errors"
+    "eslint:recommended"
   ],
   "plugins": ["jest"],
   "env": {
     "jest/globals": true
   },
   "parserOptions": {
-    "ecmaVersion": 7,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true,
-      "modules": true
-    }
+    "ecmaVersion": 2018
   },
   "rules": {
       // enable additional rules
@@ -28,7 +21,6 @@ module.exports = {
       // jest
 
       "jest/no-disabled-tests": "warn",
-      "jest/no-focused-tests": "error",
       "jest/no-identical-title": "error",
       "jest/prefer-to-have-length": "warn",
       "jest/valid-expect": "error"
