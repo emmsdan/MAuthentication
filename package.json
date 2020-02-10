@@ -5,23 +5,42 @@
   "main": "app.js",
   "scripts": {
     "test": "jest",
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "lint": "eslint ./src/** --fix --ignore-path .gitignore"
   },
   "repository": "https://gitlab.com/emmsdan/authententication.git",
   "author": "Emmanuel Daniel <ecomje@gmail.com>",
   "license": "MIT",
   "private": true,
-  "dependencies": {
-    "express": "^4.17.1"
-  },
   "jest": {
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "/node_modules/"
     ]
   },
+  "lint-staged": {
+    "src/**/*.{js}": [
+      "eslint . --fix", "git add", "npm run test"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "lint": "npm run lint ",
+      "pre-commit": "lint-staged && npm test",
+      "pre-push": "lint-staged && npm test"
+    }
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
   "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jest": "^23.7.0",
+    "husky": "^4.2.1",
     "jest": "^25.1.0",
+    "lint-staged": "^10.0.7",
     "supertest": "^4.0.2"
   }
 }

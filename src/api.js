@@ -8,6 +8,7 @@ const isRoute = (file) => file.toLowerCase().endsWith('.route.js');
 function loadApi(dirPath, app) {
   fs.readdir(BASE_DIR + dirPath, (err, files) => {
     for (const file of files) {
+      // eslint-disable-next-line
       const filePath = path.join(__dirname, `${dirPath + file}`);
       if (fs.statSync(filePath).isDirectory()) {
         loadApi(`${dirPath + file}/`, app);
