@@ -1,6 +1,6 @@
 # This the the prompt we get whenever we ssh into the box and get the message like this
 #
-# The authenticity of the host 'ip address' cannot be verified....
+# The authenticity of the host 'ip address' cannot be verified...
 #
 # Below script will disable that prompt
 
