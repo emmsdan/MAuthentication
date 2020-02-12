@@ -19,9 +19,7 @@ PATH=/home/ubuntu/node/bin:$PATH
 # source /home/ubuntu/.nvm/nvm.sh
 
 # stop the previous pm2
-pm2 kill
 npm remove pm2 -g
-
 
 #pm2 needs to be installed globally as we would be deleting the repo folder.
 # this needs to be done only once as a setup script.
