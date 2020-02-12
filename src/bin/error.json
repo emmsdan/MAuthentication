@@ -1,0 +1,11 @@
+{
+  "codeFormat": {
+    "create/new": "11++",
+    "remove/delete": "12++",
+    "update/amend": "13++",
+    "get/fetch": "14++",
+    "unknown/undefined": "99++"
+  },
+  "failedUpdate": "1399",
+  "invalidUser": "9999"
+}

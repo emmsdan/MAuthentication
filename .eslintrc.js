@@ -1,11 +1,14 @@
 module.exports = {
   "extends": [
-    "plugin:jest/all",
+    "plugin:jest/recommended",
     "eslint:recommended"
   ],
+  "parser": "babel-eslint",
   "plugins": ["jest"],
   "env": {
-    "jest/globals": true
+    "jest/globals": true,
+    "node": true,
+    "es6": true
   },
   "parserOptions": {
     "ecmaVersion": 2019,
