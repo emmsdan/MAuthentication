@@ -1,5 +1,5 @@
 #!/bin/bash
-
+echo "EmmsDan powered Deployment"
 # any future command that fails will exit the script.
 set -e
 # Lets write the public key of our aws instance
@@ -37,5 +37,9 @@ echo "ALL /OUR/ SERVERS ${ALL_SERVERS}"
 for server in "${ALL_SERVERS[@]}"
 do
   echo "deploying to ${server}"
-  ssh ubuntu@${server} 'bash -s' < ./deploy/updateAndRestart.sh
+  ssh ubuntu@${server} bash -s < ./deploy/updateAndRestart.sh
+  echo "deployed to ${server} successfully."
 done
+
+echo "Finished Deployment. Existing now....."
+echo "Powered by EmmsDan"
