@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export 
+export
 # any future command that fails will exit the script.
 set -e
 
@@ -15,8 +15,8 @@ $Gitclone
 
 #source the nvm file. In an non
 #If you are not using nvm, add the actual path like
-# PATH=/home/ubuntu/node/bin:$PATH
-source /home/ubuntu/.nvm/nvm.sh
+PATH=/home/ubuntu/node/bin:$PATH
+# source /home/ubuntu/.nvm/nvm.sh
 
 # stop the previous pm2
 pm2 kill
