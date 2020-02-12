@@ -6,8 +6,10 @@ set -e
 # Delete the old repo
 rm -rf /home/ubuntu/authententication/
 
+GIT_USERNAME=$GIT_USERNAME
+GIT_PASSWORD=$GIT_PASSWORD
 # clone the repo again
-git clone https://gitlab.com/emmsdan/authententication.git
+git clone https://${GIT_USERNAME}:${GIT_PASSWORD}gitlab.com/emmsdan/authententication.git
 
 #source the nvm file. In an non
 #If you are not using nvm, add the actual path like
