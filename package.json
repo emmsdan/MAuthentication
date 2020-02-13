@@ -6,21 +6,18 @@
   "scripts": {
     "start": "node dist/app.js",
     "start:dev": "webpack-dev-server",
-    "test": "jest ./src/**",
+    "test": "jest --coverage --colors",
     "dev": "nodemon --exec babel-node -- src/bin/api.js",
     "build": "rimraf dist && ./node_modules/.bin/babel src -d dist",
-    "lint": "eslint ./src/**.js ./src/**/**.js --fix"
+    "lint": "eslint './src/**/?(*).js?(x)' --fix",
+    "migrate:undo": "node_modules/.bin/sequelize db:migrate:undo:all",
+    "db:migrate": "node_modules/.bin/sequelize db:migrate",
+    "db:reset": "npm run migrate:undo && npm run db:migrate"
   },
   "repository": "https://gitlab.com/emmsdan/authententication.git",
   "author": "Emmanuel Daniel <ecomje@gmail.com>",
   "license": "MIT",
   "private": true,
-  "jest": {
-    "testEnvironment": "node",
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
-    ]
-  },
   "lint-staged": {
     "src/**/*.{js}": [
       "eslint . --fix",
@@ -45,6 +42,8 @@
     "nodemailer-sendgrid-transport": "^0.2.0",
     "open": "^7.0.2",
     "rimraf": "^3.0.2",
+    "sequelize": "^5.21.4",
+    "sequelize-cli": "^5.5.1",
     "uuidv4": "^6.0.2",
     "validator": "^12.2.0"
   },
