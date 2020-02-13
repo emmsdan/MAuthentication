@@ -93,7 +93,7 @@ class LanguageService {
   setCurrentLocale(language = 'en') {
     this.setLang(language);
   }
-  
+
   /**                                                  /
   * ---------------- GET TRANSLATED TEXT---------------*
   * @translate('settings') => Réglages (french)
