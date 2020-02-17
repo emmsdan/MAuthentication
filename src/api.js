@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import settings from './settings';
+import settings from '@global_settings';
 
 const { API_ENTRY_POINT, BASE_DIR, COMPONENT_DIR } = settings;
 

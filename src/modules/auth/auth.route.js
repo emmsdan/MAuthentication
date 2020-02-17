@@ -1,17 +1,25 @@
 import express from 'express';
-// import NotificationService from '../../services/notification';
-import { User } from '../../database/models';
+
+import { UserSchema } from '@schema';
+
+import { exceptionHandler, joiValidatorHandler, validateExistingUser } from '@middleware/validation';
+import { DataTypes, joify } from '@middleware/datatype';
+
+import { Register } from './registration.js';
+
+export const autoPath = 'auth'.toLowerCase();
 
 const authRoute = express.Router();
-export const autoPath = ''.toLowerCase();
 
-authRoute.get('/', async (req, res) => {
-  // console.log(User);
-  // NotificationService.subcribe(['email']);
-  // // await NotificationService.broadCast('Your friend just posted in the group', { email: 'emmsdan.inc@gmail.com', phone: '2348145467267'});
-  // // NotificationService.ls();
-  // console.log(await User.findAll())
-  res.json(await User.findAll());
-});
+/** ------------------ | Register account | --------------- **/
+
+const signupSchema = joify(UserSchema(DataTypes), [['password', 'string']], null);
+authRoute.post(
+  '/register',
+  joiValidatorHandler(signupSchema),
+  validateExistingUser,
+  exceptionHandler(Register));
+
+/** ------------------ | End of Register Account | --------- **/
 
 export default authRoute;
