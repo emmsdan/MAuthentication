@@ -17,7 +17,7 @@
 
 import fileSystem from 'fs';
 
-import { locales } from '../settings';
+import { locales } from '@global_settings';
 
 /**                                                  /
 * ---------------- SETUP PRIVATE VAR -----------------*

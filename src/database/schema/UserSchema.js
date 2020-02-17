@@ -7,14 +7,24 @@ const UserSchema = (DataTypes) => {
       defaultValue: DataTypes.UUIDV4,
       unique: true,
     },
-    lastname: {
+    name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      use: 'signup',
     },
     email: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
+      use: 'as username'
+    },
+    phone: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: true,
+      use: 'as username'
+    },
+    country: {
+      type: DataTypes.STRING,
     },
   };
 };

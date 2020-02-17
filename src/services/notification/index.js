@@ -1,9 +1,9 @@
 import { uuid } from 'uuidv4';
 
-import errorCodeFile from '../bin/error.json';
+import errorCodeFile from '@bin/error.json';
 
-import EmailService from './email';
-import SMSService from './sms';
+import EmailService from '@service/messaging/email';
+import SMSService from '@service/messaging/sms';
 
 /**
 * @author EmmsDan <emmsdan.inc@gmail.com>

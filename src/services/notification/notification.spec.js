@@ -13,7 +13,7 @@ describe('tests that send email',  () => {
       host: '127.0.0.1',
       port: -100,
     });
-    const { default: EmailService } = require('./email');
+    const { default: EmailService } = require('../messaging/email');
     email = await new EmailService({ transport });
 
   });
