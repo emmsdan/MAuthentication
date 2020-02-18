@@ -12,5 +12,7 @@
   "createdAccountEmail": "Your account has been created. <b/> Please, use the code/link below, to activate your account.",
   "createAccountSuccess": "Your account has been created. Please, verify account by following the link sent to your email, or enter pin.",
 
-  "serverError": "The server encountered an unexpected condition/issue that prevented it from fulfilling the request. Try again in few mins, or contact the Administrator."
+  "serverError": "The server encountered an unexpected condition/issue that prevented it from fulfilling the request. Try again in few mins, or contact the Administrator.",
+
+  "invalidCredentials": "Credentials provided are invalid."
 }

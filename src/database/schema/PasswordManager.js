@@ -15,7 +15,8 @@ const PasswordManagerSchema = (DataTypes) => {
     },
     userId: {
       type: DataTypes.UUID,
-    }
+    },
+    __: { type: DataTypes.STRING }
   };
 };
 

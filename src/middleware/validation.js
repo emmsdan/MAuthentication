@@ -2,6 +2,8 @@ import Joi from '@hapi/joi';
 
 import Response from '@response';
 import UserService from '@service/user';
+import routes from '@settings/routes';
+const AUTH = routes.AUTHENTICATION;
 
 export const joiValidatorHandler = (schema) => async (req, res, next) => {
   try {
@@ -27,10 +29,14 @@ export const exceptionHandler = (modules) => async (req, res, next) => {
 };
 
 export const validateExistingUser = async (req, res, next) => {
-  const where  = new UserService().whereObjectForGetUser(req.body.email || req.body.phone);
+  const id = req.body.email || req.body.phone || req.body.username;
+  const where  = new UserService().whereObjectForGetUser(id || 'e');
   const user = await new UserService().findOneRecord({ where: { ...where } }, null);
-  if(user) {
+  if(user && (req.url.search(AUTH.LOGIN) === -1)) {
     return Response.error(res, 409, req.translate('userExist'));
+  }
+  if (user) {
+    req.dbUser = user;
   }
   next();
 };

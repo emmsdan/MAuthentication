@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+
 import { getEnv } from '@utils/utils';
 import settings from '@global_settings';
 

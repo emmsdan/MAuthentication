@@ -6,7 +6,7 @@ import Response from '@response';
 
 import { createActivation } from '@service/auth';
 
-export async function Register(req, res) {
+export default async function Register(req, res) {
   try {
     const useri = new UserService(req.initiator);
     useri.ActionCreator.set({ id: req.body.email, name: req.body.name });
