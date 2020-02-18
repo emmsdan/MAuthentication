@@ -11,6 +11,8 @@
   "helloGreeting": "Bonjour",
   "createdAccountEmail": "Votre compte a été créé. <b /> Veuillez utiliser le code/lien ci-dessous pour activer votre compte.",
   "createAccountSuccess": "Votre compte a été créé. Veuillez vérifier le compte en suivant le lien envoyé à votre e-mail ou entrez le code PIN.",
-  
-  "serverError": "Le serveur a rencontré une condition / un problème inattendu qui l'a empêché de répondre à la demande. Réessayez dans quelques minutes ou contactez l'administrateur."
+
+  "serverError": "Le serveur a rencontré une condition / un problème inattendu qui l'a empêché de répondre à la demande. Réessayez dans quelques minutes ou contactez l'administrateur.",
+
+  "invalidCredentials": "Les informations d'identification fournies ne sont pas valides."
 }

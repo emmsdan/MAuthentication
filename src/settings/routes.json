@@ -1,0 +1,9 @@
+{
+  "AUTHENTICATION": {
+    "path": "auth",
+    "LOGIN": "/login",
+    "SIGNUP": "/register",
+    "FORGOTPASSWORD": "/reset-password",
+    "VERIFYACCOUNT": "/verify-account"
+  }
+}

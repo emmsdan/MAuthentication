@@ -5,6 +5,7 @@ const {
   ActivationSchema,
   InitiatorSchema
 } = require('../schema');
+const encryptor = require('../../utils/encryptor');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', UserSchema(DataTypes), {});
@@ -41,5 +42,15 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
+  /** -------------- Setup Hooks -----____----- **/
+  PasswordManager.beforeCreate(async (password) => {
+    const hashedPassword = await encryptor.hash(password.currentPass);
+    password.currentPass = hashedPassword;
+  });
+  PasswordManager.beforeUpdate(async (password, options) => {
+    const hashedPassword = await encryptor.compare(options.fields.currentPass, password.currentPass);
+    password.previousPass = options.fields.currentPass;
+    password.currentPass = hashedPassword;
+  });
   return { User, PasswordManager, SocialMediaConnect, Activation, Initiator };
 };

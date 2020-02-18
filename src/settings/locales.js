@@ -98,8 +98,8 @@ class LanguageService {
   * ---------------- GET TRANSLATED TEXT---------------*
   * @translate('settings') => Réglages (french)
   */
-  translate(key, defaultValue='s') {
-    return this[__language][key] || defaultValue;
+  translate(key, defaultValue=null) {
+    return this[__language][key] || defaultValue || key;
   }
 
   /**                                                  /

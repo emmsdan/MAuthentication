@@ -36,7 +36,7 @@ export const joify = (object, attr = [], usage = null) => {
     }
   });
   Array.isArray(attr) && attr.forEach(key => {
-    newObject[key[0]] = DataTypes[key[1]];
+    newObject[key[0]] = DataTypes[key[1]].required();
   });
   return newObject;
 };
