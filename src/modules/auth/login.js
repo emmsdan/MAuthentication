@@ -16,11 +16,11 @@ export default async function Login(req, res) {
     if (curr) {
       const { id, updatedAt } = req.dbUser;
       const token = await JWTStrategy.sign({ id, updatedAt });
-      Response.success(
+      return Response.success(
         res, 200,
         { user: req.dbUser, token }, req.translate('invalidCredentials'));
     }
-    Response.error(res, 404, req.translate('invalidCredentials'));
+    return Response.error(res, 404, req.translate('invalidCredentials'));
   } catch (e) {
     Response.error(res, 500, req.translate('serverError'));
   }

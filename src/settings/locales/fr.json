@@ -14,5 +14,6 @@
 
   "serverError": "Le serveur a rencontré une condition / un problème inattendu qui l'a empêché de répondre à la demande. Réessayez dans quelques minutes ou contactez l'administrateur.",
 
-  "invalidCredentials": "Les informations d'identification fournies ne sont pas valides."
+  "invalidCredentials": "Les informations d'identification fournies ne sont pas valides.",
+  "activationSuccess": "Votre compte a été activé / vérifié."
 }
