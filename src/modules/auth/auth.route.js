@@ -3,14 +3,13 @@ import express from 'express';
 import routes from '@settings/routes';
 import { UserSchema } from '@schema';
 // import Response from '@response';
+// import AuthService from '@service/auth';
 
 import { exceptionHandler, joiValidatorHandler, validateExistingUser } from '@middleware/validation';
 import { DataTypes, joify } from '@middleware/datatype';
 
-import Register from './registration';
+import Register, { ActivateAccount } from './registration';
 import Login from './login';
-
-// import { JWTStrategy } from '@utils/security';
 
 const AUTH = routes.AUTHENTICATION;
 export const autoPath = AUTH.path.toLowerCase();
@@ -28,6 +27,18 @@ authRoute.post(
 
 /** ------------------ | End of Register Account | --------- **/
 
+
+/** ------------------ | Account Login | --------------- **/
+
+const activationSchema = joify({}, [
+  ['userId', 'string'],['token', 'string']
+], null);
+authRoute.post(
+  AUTH.VERIFYACCOUNT,
+  joiValidatorHandler(activationSchema),
+  exceptionHandler(ActivateAccount));
+
+/** ------------------ | End of Account Login | --------- **/
 
 /** ------------------ | Account Login | --------------- **/
 

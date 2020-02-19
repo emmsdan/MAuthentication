@@ -3,7 +3,7 @@
 import path from 'path';
 
 export const locales = {
-  defaultLocale    : 'fr',
+  defaultLocale    : 'en',
   directory: path.join(__dirname, 'settings/locales'),
   translate      : 'true',
   locales: 0 // can also be an array of selected langs.. ['en', 'fr']

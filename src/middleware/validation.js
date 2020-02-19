@@ -29,10 +29,10 @@ export const exceptionHandler = (modules) => async (req, res, next) => {
 };
 
 export const validateExistingUser = async (req, res, next) => {
-  const id = req.body.email || req.body.phone || req.body.username;
+  const id = req.body.email || req.body.userId || req.body.phone || req.body.username;
   const where  = new UserService().whereObjectForGetUser(id || 'e');
   const user = await new UserService().findOneRecord({ where: { ...where } }, null);
-  if(user && (req.url.search(AUTH.LOGIN) === -1)) {
+  if(user && (req.url.search(AUTH.LOGIN) === -1) && (req.url.search(AUTH.VERIFYACCOUNT) === -1)) {
     return Response.error(res, 409, req.translate('userExist'));
   }
   if (user) {

@@ -11,8 +11,7 @@ const ActivationSchema = (DataTypes) => {
       type: DataTypes.UUID,
     },
     token: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.STRING
     },
   };
 };

@@ -14,5 +14,6 @@
 
   "serverError": "The server encountered an unexpected condition/issue that prevented it from fulfilling the request. Try again in few mins, or contact the Administrator.",
 
-  "invalidCredentials": "Credentials provided are invalid."
+  "invalidCredentials": "Credentials provided are invalid.",
+  "activationSuccess": "Your account has been activated/verified."
 }
