@@ -9,7 +9,9 @@
   "userExist": "User already exist.",
   "hiGreeting": "Hi",
   "helloGreeting": "Hello",
-  "createdAccountEmail": "Your account has been created. <b/> Please, use the code/link below, to activate your account.",
+  "createdAccountEmailSMS": "Your account has been created. Please, use the code/link below, to activate your account.",
+  "createdAccountCodeSMS": "Your activation code is:",
+  "createdAccountActivationURLSMS": "Also active using this link:",
   "createAccountSuccess": "Your account has been created. Please, verify account by following the link sent to your email, or enter pin.",
 
   "serverError": "The server encountered an unexpected condition/issue that prevented it from fulfilling the request. Try again in few mins, or contact the Administrator.",

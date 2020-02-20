@@ -1,6 +1,9 @@
 import nodemailer from 'nodemailer';
 import sgTransport from 'nodemailer-sendgrid-transport';
+import {TwingEnvironment, TwingLoaderFilesystem} from 'twing';
 
+
+import { socialMedia, logo } from '@global_settings';
 
 /**
 * @author EmmsDan <emmsdan.inc@gmail.com>
@@ -11,7 +14,6 @@ import sgTransport from 'nodemailer-sendgrid-transport';
 /**
 * -------------------------- Basic Usage
   const email = new EmailService({ user, pass, service });
-  console.log(await email.send({
     from: '"Fred Foo 👻" <me@example.com>', // sender address
     to: 'you@example.com', // list of receivers
     subject: 'Hello ✔', // Subject line
@@ -22,18 +24,24 @@ import sgTransport from 'nodemailer-sendgrid-transport';
 */
 
 class EmailService {
-  constructor({ user, pass, service='SendGrid', transport = null }) {
+  constructor({ user=process.env.SMTP_USER || '', pass=process.env.SMTP_PASS || '', service='SendGrid', transport = null }) {
     this.__username = user;
     this.__password = pass;
     this.__otherTransport = transport;
-    this.__client =  transport
+    this.__client = transport
       || nodemailer.createTransport( this.getServiceTypeAuth(service));
+
+    this.__templateDir = 'src/static/template/email';
+
+    const loader = new TwingLoaderFilesystem(this.__templateDir);
+    this.__twing = new TwingEnvironment(loader);
   }
 
   async send(mailOptions){
     try {
       const from = `'"${process.env.EMAIL_SENDER_NAME} 👻" <${process.env.EMAIL_SENDER}>'`;
-      const sentMail = await this.__client.sendMail({...mailOptions, from });
+      const html = this.__emailMessage || mailOptions.html;
+      const sentMail = await this.__client.sendMail({...mailOptions, from, html });
       return sentMail.message;
     } catch (error) {
       this.setError(error);
@@ -66,6 +74,21 @@ class EmailService {
       'other': this.__otherTransport
     };
     return services[service];
+  }
+
+  async useEmailTemplate(fields, template='registration') {
+    if (!fields || !template) {
+      return 'Specify a template and field params.';
+    }
+    try {
+      this.__emailMessage = await this.__twing.render(template + '.html', fields);
+    } catch (e) {
+      return e.message;
+    }
+  }
+
+  getField(fields) {
+    return { ...logo, ...socialMedia, ...fields };
   }
 }
 

@@ -10,6 +10,7 @@ import { DataTypes, joify } from '@middleware/datatype';
 
 import Register, { ActivateAccount } from './registration';
 import Login from './login';
+// import EmailService from '@service/messaging/email';
 
 const AUTH = routes.AUTHENTICATION;
 export const autoPath = AUTH.path.toLowerCase();
