@@ -34,7 +34,7 @@ describe('tests that send email',  () => {
       html: '<h3> Hello </h3>'
     };
     await email.send(request);
-    const response = nodemailerMock.mock.getSentMail();
+    const response = await nodemailerMock.mock.getSentMail();
     expect(response[0]).toMatchObject(request);
   });
 });

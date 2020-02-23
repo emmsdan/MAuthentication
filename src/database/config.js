@@ -7,7 +7,7 @@ module.exports = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
-    logging: true,
+    logging: false,
     ...(process.env.DATABASE_URL ? {use_env_variable: 'DATABASE_URL'} : ''),
   },
   test: {

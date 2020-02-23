@@ -15,6 +15,7 @@
         "@controller": "./src/modules",
         "@module": "./src/modules",
         "@service": "./src/services",
+        "@emailTemplate": "./src/static/template/email",
         "@middleware": "./src/middleware",
         "@utils": "./src/utils",
         "@response": "./src/utils/response",
