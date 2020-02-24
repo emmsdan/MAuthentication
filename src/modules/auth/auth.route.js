@@ -8,10 +8,9 @@ import { UserSchema } from '@schema';
 import { exceptionHandler, joiValidatorHandler, validateExistingUser } from '@middleware/validation';
 import { DataTypes, joify } from '@middleware/datatype';
 
-import Register, { ActivateAccount } from './registration';
+import Register, { ChangePassword } from './registration';
 import Login from './login';
-// import EmailService from '@service/messaging/email';
-
+import { ActivateAccount, VerifyToken, ForgotPassword } from './verify';
 const AUTH = routes.AUTHENTICATION;
 export const autoPath = AUTH.path.toLowerCase();
 
@@ -29,7 +28,7 @@ authRoute.post(
 /** ------------------ | End of Register Account | --------- **/
 
 
-/** ------------------ | Account Login | --------------- **/
+/** ------------------ | Account Activation | --------------- **/
 
 const activationSchema = joify({}, [
   ['userId', 'string'],['token', 'string']
@@ -39,7 +38,31 @@ authRoute.post(
   joiValidatorHandler(activationSchema),
   exceptionHandler(ActivateAccount));
 
-/** ------------------ | End of Account Login | --------- **/
+/** ------------------ | End of Account Activation | --------- **/
+
+
+/** ------------------ | Forgot Password | --------------- **/
+
+const forgotPasswordSchema = joify({}, [
+  ['username', 'string']
+], null);
+authRoute.post(
+  AUTH.FORGOTPASSWORD,
+  joiValidatorHandler(forgotPasswordSchema),
+  exceptionHandler(ForgotPassword));
+
+/** ------------------ | End of Forgot Password | --------- **/
+
+
+/** ------------------ | Account Token Verification | --------------- **/
+
+authRoute.post(
+  AUTH.VERIFYTOKEN,
+  joiValidatorHandler(activationSchema),
+  exceptionHandler(VerifyToken));
+
+/** ------------------ | End of Token Verification | --------- **/
+
 
 /** ------------------ | Account Login | --------------- **/
 
@@ -53,5 +76,16 @@ authRoute.post(
   exceptionHandler(Login));
 
 /** ------------------ | End of Account Login | --------- **/
+
+
+/** ------------------ | Account Token Verification | --------------- **/
+
+authRoute.post(
+  AUTH.CHANGEPASSWORD,
+  joiValidatorHandler(loginSchema),
+  validateExistingUser,
+  exceptionHandler(ChangePassword));
+
+/** ------------------ | End of Token Verification | --------- **/
 
 export default authRoute;

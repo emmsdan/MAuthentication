@@ -18,7 +18,7 @@ export default class AuthService extends DBModel {
     super();
     this.model = Activation;
     this.model_password = PasswordManager;
-  } 
+  }
 
   /**
 	 * update auth related tables

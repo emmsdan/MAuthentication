@@ -5,6 +5,8 @@ import { JWTStrategy } from '@utils/security';
 import Response from '@response';
 
 import AuthService from '@service/auth';
+import { PasswordManager } from '@models';
+const encryptor = require('@utils/encryptor');
 
 export default async function Register(req, res) {
   try {
@@ -27,18 +29,21 @@ export default async function Register(req, res) {
   }
 }
 
-export async function ActivateAccount(req, res) {
+export async function ChangePassword(req, res) {
   try {
-    const getActive = await AuthService.findInactiveById(req.body.userId);
-    if(!getActive || getActive.token !== req.body.token){
-      return Response.error(res,
-        405, req.translate('invalidCredentials'));
+    if (!req.dbUser) {
+      return Response.success(res, 200, '', req.translate('invalidCredentials'));
     }
-    getActive.token = false;
-    getActive.save();
-    return Response.success(res,
-      200, null, req.translate('activationSuccess'));
+    const { id } = req.dbUser;
+    const { password } = req.body;
+
+    const pass = new AuthService(req.initiator);
+    pass.ActionCreator.set({ id: req.dbUser.email, name: req.dbUser.name });
+    const passwordManager = await PasswordManager.update({
+      currentPass: await encryptor.hash(password)
+    }, { where: { userId: id  }});
+    Response.success(res, 200, '', passwordManager);
   } catch (e) {
-    Response.error(res, 500, req.translate('serverError'));
+    Response.error(res, 200, '', e);
   }
 }
