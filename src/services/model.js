@@ -18,6 +18,7 @@ export default class DBModel {
   constructor(actionCreator=null) {
     this.ActionCreator = actionCreator || ActionCreator;
   }
+
   async createRecord(iObject, transaction=null) {
     try {
       Utils.isObject(iObject, Lang.t('INVALID_TABLE_MODEL'));
@@ -81,6 +82,7 @@ export default class DBModel {
     try {
       Utils.isObject(where, Lang.t('INVALID_TABLE_MODEL'));
       Utils.isObject(body, Lang.t('INVALID_TABLE_MODEL'));
+      
       await this.model.update(body, { where });
       const record = await this.model.findOne({ where, attributes });
       await this.set({ tableId: record.id, action: 'update' });

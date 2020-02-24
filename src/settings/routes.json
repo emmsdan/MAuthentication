@@ -4,6 +4,8 @@
     "LOGIN": "/login",
     "SIGNUP": "/register",
     "FORGOTPASSWORD": "/reset-password",
-    "VERIFYACCOUNT": "/verify-account"
+    "VERIFYACCOUNT": "/verify-account",
+    "VERIFYTOKEN": "/token-verification",
+    "CHANGEPASSWORD": "/change-password"
   }
 }

@@ -10,8 +10,9 @@
   "hiGreeting": "Hi",
   "helloGreeting": "Hello",
   "createdAccountEmailSMS": "Your account has been created. Please, use the code/link below, to activate your account.",
+  "resetPasswordEmail": "Check your inbox for reset link/code.",
   "createdAccountCodeSMS": "Your activation code is:",
-  "createdAccountActivationURLSMS": "Also active using this link:",
+  "createdAccountActivationURLSMS": "Your Activation link:",
   "createAccountSuccess": "Your account has been created. Please, verify account by following the link sent to your email, or enter pin.",
 
   "serverError": "The server encountered an unexpected condition/issue that prevented it from fulfilling the request. Try again in few mins, or contact the Administrator.",

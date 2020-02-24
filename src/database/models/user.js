@@ -47,10 +47,6 @@ module.exports = (sequelize, DataTypes) => {
     const hashedPassword = await encryptor.hash(password.currentPass);
     password.currentPass = hashedPassword;
   });
-  PasswordManager.beforeUpdate(async (password, options) => {
-    const hashedPassword = await encryptor.compare(options.fields.currentPass, password.currentPass);
-    password.previousPass = options.fields.currentPass;
-    password.currentPass = hashedPassword;
-  });
+
   return { User, PasswordManager, SocialMediaConnect, Activation, Initiator };
 };
