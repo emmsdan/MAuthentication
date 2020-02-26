@@ -3,6 +3,8 @@ import Joi from '@hapi/joi';
 import Response from '@response';
 import UserService from '@service/user';
 import routes from '@settings/routes';
+import { JWTStrategy } from '@utils/security';
+
 const AUTH = routes.AUTHENTICATION;
 
 export const joiValidatorHandler = (schema) => async (req, res, next) => {
@@ -39,4 +41,41 @@ export const validateExistingUser = async (req, res, next) => {
     req.dbUser = user;
   }
   next();
+};
+
+export const authorizedUser = async (req, res, next) => {
+  const Authorization = req.headers.authorization.split(' ');
+  try {
+    const verify = await JWTStrategy.verify(Authorization[1]);
+
+    const user = await new UserService()
+      .findOneRecord({ where: { id: verify.id } }, null);
+    if (!user) {
+      return Response.error(res, 401, req.translate('UnauthorizedUser1'));
+    }
+    req.dbUser = user;
+    next();
+  } catch (e) {
+    return Response.error(res, 401, req.translate('UnauthorizedUser'));
+  }
+};
+
+export const authorizedAdminUser = async (req, res, next) => {
+  const Authorization = req.headers.authorization.split(' ');
+  try {
+    const verify = await JWTStrategy.verify(Authorization[1]);
+    if(Authorization[0] !== 'Bearer' || !verify.isAdmin) {
+      return Response.error(res, 403, req.translate('NotPermitted'));
+    }
+
+    const user = await new UserService()
+      .findOneRecord({ where: { id: verify.id } }, null);
+    if (!user) {
+      return Response.error(res, 401, req.translate('UnauthorizedUser1'));
+    }
+    req.dbUser = user;
+    next();
+  } catch (e) {
+    return Response.error(res, 401, req.translate('UnauthorizedUser'));
+  }
 };

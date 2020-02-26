@@ -14,8 +14,9 @@ export default async function Login(req, res) {
       req.body.password, password.currentPass);
 
     if (curr) {
-      const { id, updatedAt } = req.dbUser;
-      const token = await JWTStrategy.sign({ id, updatedAt });
+      const { id, updatedAt, isAdmin } = req.dbUser;
+      const token = await JWTStrategy.sign({ id, updatedAt, isAdmin });
+      delete req.dbUser.isAdmin;
       return Response.success(
         res, 200,
         { user: req.dbUser, token });

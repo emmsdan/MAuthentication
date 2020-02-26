@@ -50,4 +50,5 @@ export const DataTypes = {
   'NUMBER': NUMBER,
   'email': STRING.email(),
   'phone': Joi.number(),
+  'number': Joi.number(),
 };

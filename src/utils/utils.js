@@ -1,5 +1,6 @@
 import { BitlyClient } from 'bitly';
-import 'dotenv/config';
+import { config } from 'dotenv';
+config();
 
 /**
 * Handles error responses for database

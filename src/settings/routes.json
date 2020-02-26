@@ -7,5 +7,11 @@
     "VERIFYACCOUNT": "/verify-account",
     "VERIFYTOKEN": "/token-verification",
     "CHANGEPASSWORD": "/change-password"
+  },
+  "USER": {
+    "path": "user",
+    "FETCH_ALL": "/",
+    "FETCH": "/:username",
+    "FETCH_ADMINS": "/admin"
   }
 }

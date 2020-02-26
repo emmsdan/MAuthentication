@@ -13,7 +13,7 @@ export const locales = {
 };
 
 export const authSettings = {
-  allowAccountActivation: true,
+  allowAccountActivation: false,
 };
 
 export const securityKey = {
