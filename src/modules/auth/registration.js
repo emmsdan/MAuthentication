@@ -20,6 +20,8 @@ export default async function Register(req, res) {
       const { id, updatedAt } = user;
       token = await JWTStrategy.sign({ id, updatedAt });
     }
+    delete user.isAdmin;
+
     Response.success(
       res, 201,
       { user, token },

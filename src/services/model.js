@@ -32,9 +32,9 @@ export default class DBModel {
 
   async findOneRecord(whereObject, initiate = true) {
     try {
-      const { where, attributes = '' } = whereObject;
+      const { where, attributes = '', others } = whereObject;
       Utils.isObject(whereObject, Lang.t('INVALID_TABLE_MODEL'));
-      const record = await this.model.findOne({ where, attributes });
+      const record = await this.model.findOne({ where, attributes, ...others });
       if (!record) return false;
       return initiate ? await this.set({
         tableId: record.id,
@@ -56,10 +56,10 @@ export default class DBModel {
 
   async findAllRecord(whereObject) {
     try {
-      const { where, attributes=null } = whereObject;
+      const { where, attributes=null, others } = whereObject;
       delete whereObject.initiator;
       Utils.isObject(whereObject, Lang.t('INVALID_TABLE_MODEL'));
-      const record = await this.model.findAll({ where: {...where }, attributes });
+      const record = await this.model.findAll({ attributes, ...others, where: {...where } });
       await this.set({ tableId: 'pending', action: 'get' });
       return record;
     } catch (error) {
@@ -82,7 +82,7 @@ export default class DBModel {
     try {
       Utils.isObject(where, Lang.t('INVALID_TABLE_MODEL'));
       Utils.isObject(body, Lang.t('INVALID_TABLE_MODEL'));
-      
+
       await this.model.update(body, { where });
       const record = await this.model.findOne({ where, attributes });
       await this.set({ tableId: record.id, action: 'update' });

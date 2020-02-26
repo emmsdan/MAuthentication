@@ -26,6 +26,10 @@ const UserSchema = (DataTypes) => {
     country: {
       type: DataTypes.STRING,
     },
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
   };
 };
 
