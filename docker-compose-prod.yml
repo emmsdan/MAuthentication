@@ -1,0 +1,38 @@
+version: "3"
+services:
+  reverse-proxy:
+    image: traefik:v2.0
+    command: --api.insecure=true --providers.docker
+    ports:
+      - "80:80"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - emmsdan_auth
+
+  api:
+    build: .
+    env_file:
+      - .env
+    command: npm run start
+    volumes:
+      - ./server-auth.emmsdan:/usr/src/app
+    labels:
+      - "traefik.http.routers.api.rule=Host(`api.auth.emmsdan.localhost`)"
+      - "traefik.http.services.api.loadbalancer.server.port=40000"
+    networks:
+      - emmsdan_auth
+
+  database:
+    image: dpage/pgadmin4
+    labels:
+      - "traefik.http.routers.phpmyadmin.rule=Host(`database.auth.emmsdan.localhost`)"
+    env_file:
+      - .env
+    networks:
+      - emmsdan_auth
+
+networks:
+  emmsdan_auth:

@@ -9,7 +9,7 @@ class JWTStrategyClass {
   }
   async sign(payload) {
     this.__expiresIn = settings.securityKey.expiresIn;
-    this.__token = jwt.sign(payload, this.__privateKey,  { expiresIn: '30h' });
+    this.__token = jwt.sign(payload, this.__privateKey,  { expiresIn: this.__expiresIn });
     return this.__token;
   }
   async verify(token) {

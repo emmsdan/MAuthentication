@@ -63,7 +63,7 @@ class LanguageService {
 
   [___loadLocale]() {
     const { directory, current, defaultLocale } = this[__configEnv];
-    const __dir =  `${directory}/${current || defaultLocale}.json`;
+    const __dir =  `${directory}/${current?.split('_')[0] || defaultLocale.split('_')[0]}.json`;
     this[__language] = require(__dir);
   }
 
@@ -80,7 +80,7 @@ class LanguageService {
   }
 
   setLang(language = 'en') {
-    if (this.languages.indexOf(`${language.toLowerCase()}.json`) === -1)
+    if (this.languages.indexOf(`${language.toLowerCase().split('_')[0]}.json`) === -1)
       throw Error('Language not supported.');
 
     this[__configEnv] = {

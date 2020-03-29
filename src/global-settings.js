@@ -6,9 +6,9 @@ const APP_TITLE = 'EmmsDan';
 const APP_URL = process.env.FRONTEND_URL || 'https://emmsdan.com';
 const APP_LOGO = 'https://res.cloudinary.com/emmsdan/image/upload/v1559042471/authors-haven/17757468_1014843961983837_2430230854716361697_n_go8xqn.jpg';
 export const locales = {
-  defaultLocale    : 'en',
+  defaultLocale    : process.env.LANG || 'en',
   directory: path.join(__dirname, 'settings/locales'),
-  translate      : 'true',
+  translate      : process.env.TRANSLATE || 'true',
   locales: 0 // can also be an array of selected langs.. ['en', 'fr']
 };
 
@@ -17,7 +17,7 @@ export const authSettings = {
 };
 
 export const securityKey = {
-  expiresIn: '5h'
+  expiresIn: process.env.KEY_EXPIRATION || '720h'
 };
 
 export const logo = {

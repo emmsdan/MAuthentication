@@ -16,7 +16,6 @@ function loadApi(dirPath, app) {
         const filename = dirPath + path.basename(file);
         const route = require(`./${filename}`);
         app.use(`${API_ENTRY_POINT}/${route.autoPath}`, route.default);
-        app.use(`${API_ENTRY_POINT}/${route.autoPath}`, route.default);
       }
     }
   });

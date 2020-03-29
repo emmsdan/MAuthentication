@@ -1,0 +1,67 @@
+version: "3"
+services:
+  reverse-proxy:
+    image: traefik:v2.0
+    command: --api.insecure=true --providers.docker
+    ports:
+      - "80:80"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - emmsdan_auth
+
+  api:
+    build: .
+    labels:
+      - "traefik.http.routers.api.rule=Host(`api.auth.emmsdan.localhost`)"
+      - "traefik.http.services.api.loadbalancer.server.port=40000"
+    environment:
+      DB_DIALECT: postgres
+      DB_DATABASE: emmsdan_auth_db
+      DB_USERNAME: emmsdan_auth_db
+      DB_PASSWORD: emmsdan_auth_db
+      DB_HOST: database_pg
+    command: npm run dev
+    volumes:
+      - api:/api/auth/src
+    networks:
+      - emmsdan_auth
+    links:
+      - database
+
+  database:
+    image: postgres:9.6
+    container_name: database_pg
+    environment:
+      POSTGRES_USER: emmsdan_auth_db
+      POSTGRES_PASSWORD: emmsdan_auth_db
+      POSTGRES_DB: emmsdan_auth_db
+    networks:
+      - emmsdan_auth
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgvol:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    links:
+      - database
+    environment:
+      - "PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-ecomje@gmail.com}"
+      - "PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD:-1234567890}"
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    labels:
+      - "traefik.http.routers.pgadmin.rule=Host(`database.auth.emmsdan.localhost`)"
+
+networks:
+  emmsdan_auth:
+    driver: bridge
+
+volumes:
+  api:
+  pgvol:
+  pgadmin:
