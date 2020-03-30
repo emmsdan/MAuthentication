@@ -1,8 +1,9 @@
 import { Op } from 'sequelize';
+import DBModel from '@service/model';
 
 import { Activation, PasswordManager } from '@models';
 import * as Utils from '@utils/utils';
-import DBModel from '@service/model';
+import settings from '@global_settings';
 
 import { activationLink, randomNumber } from '@utils/utils';
 import NotificationService from '@service/notification';
@@ -53,9 +54,13 @@ export default class AuthService extends DBModel {
 	* @param {db object} user contains User information
   * @param {express request object} request object
   */
-  static async createActivation (user, req) {
+  static async createActivation ({ user, appInfo }, req) {
     const token = randomNumber().toString();
-    await user.createActivation({ token });
+    const userActivation = await user.createActivation({ token, ...appInfo });
+    if (settings.offlineMode) {
+      return userActivation;
+    }
+
     const bit = await activationLink(user.id, token);
 
     async function sendSms() {
@@ -81,6 +86,7 @@ export default class AuthService extends DBModel {
         }, user);
       }
     }
+
     return Promise.all([sendSms(), sendEmail()]);
   }
 }

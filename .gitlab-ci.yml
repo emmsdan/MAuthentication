@@ -1,11 +1,12 @@
 image: node:8.9.0
 
 before_script:
-  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   - npm install
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
 
 stages:
   - test
+  - staging
   - deploy
 
 # lint and test are two different jobs in the same stage.
@@ -20,6 +21,18 @@ test:
   stage: test
   script:
     - npm run test
+
+staging:
+    type: deploy
+    stage: staging
+    image: ruby:latest
+    script:
+      - apt-get update -qy
+      - apt-get install -y ruby-dev
+      - gem install dpl
+      - dpl --provider=heroku --app=$HEROKU_APP_STAGING --api-key=$HEROKU_API_KEY
+    only:
+        - develop
 
 deploy:dev:
   stage: deploy

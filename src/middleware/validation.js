@@ -4,16 +4,22 @@ import Response from '@response';
 import UserService from '@service/user';
 import routes from '@settings/routes';
 import { JWTStrategy } from '@utils/security';
+import { authSettings } from '@global_settings';
 
 const AUTH = routes.AUTHENTICATION;
 
 export const joiValidatorHandler = (schema) => async (req, res, next) => {
   try {
+    const header = req.headers[authSettings.header.appAuthID.name] || '';
+    if (!header || header.search(authSettings.header.appAuthID.value) === -1) {
+      throw Error('Could not authenticate App');
+    }
     req.body =  await Joi.object(schema).validateAsync({
       ...req.params,
       ...req.body,
       ...req.query,
     });
+    req.body[authSettings.header.database.name] = header;
     next();
   } catch (error) {
     Response.error(res, 422, error.message);
@@ -31,8 +37,9 @@ export const exceptionHandler = (modules) => async (req, res, next) => {
 };
 
 export const validateExistingUser = async (req, res, next) => {
-  const id = req.body.email || req.body.userId || req.body.phone || req.body.username;
-  const where  = new UserService().whereObjectForGetUser(id || 'e');
+  const id = req.body.email || req.body.userId;
+  const userId =  req.body.phone || req.body.username;
+  const where  = new UserService().whereObjectForGetUser(id || 'e', userId);
   const user = await new UserService().findOneRecord({ where: { ...where } }, null);
   if(user && (req.url.search(AUTH.LOGIN) === -1) && (req.url.search(AUTH.VERIFYACCOUNT) === -1) && (req.url.search(AUTH.CHANGEPASSWORD) === -1)) {
     return Response.error(res, 409, req.translate('userExist'));

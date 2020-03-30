@@ -1,3 +1,4 @@
+const authSettingSchema = require('../../settings/auth').authSchema;
 const SocialMediaConnectSchema = (DataTypes) => {
   return  {
     id: {
@@ -16,6 +17,7 @@ const SocialMediaConnectSchema = (DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    ...authSettingSchema(DataTypes)
   };
 };
 

@@ -1,3 +1,5 @@
+const authSettingSchema = require('../../settings/auth').authSchema;
+
 const ActivationSchema = (DataTypes) => {
   return  {
     id: {
@@ -13,6 +15,7 @@ const ActivationSchema = (DataTypes) => {
     token: {
       type: DataTypes.STRING
     },
+    ...authSettingSchema(DataTypes)
   };
 };
 

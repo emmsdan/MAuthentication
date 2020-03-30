@@ -2,6 +2,7 @@ import * as Utils from '@utils/utils';
 import Model from '@models';
 import ActionCreator from '@service/initiator';
 import Lang from '@lang';
+import { authSettings as authHeaderSettings } from '@settings/auth';
 
 /**
  * @description Handles connections to the database Model
@@ -68,13 +69,16 @@ export default class DBModel {
   }
 
   async set({ action, tableId }, transaction=null) {
-    const { id, name } = this.ActionCreator.get();
+    const { id, name,  } = this.ActionCreator.get();
+    const appId = {};
+    appId[authHeaderSettings.header.database.name] = this.ActionCreator.get()[authHeaderSettings.header.database.name];
     return await Model.Initiator.create({
       refTableId: tableId,
       refTable: this.model.name,
       initiatorId: id,
       initiatorName: name,
-      action: action
+      action: action,
+      ...appId
     }, {transaction});
   }
 
