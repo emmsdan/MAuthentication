@@ -1,5 +1,5 @@
 import UserService from '@service/user';
-import settings from '@global_settings';
+import settings, { authSettings } from '@global_settings';
 
 import { JWTStrategy } from '@utils/security';
 import Response from '@response';
@@ -11,17 +11,22 @@ const encryptor = require('@utils/encryptor');
 export default async function Register(req, res) {
   try {
     const useri = new UserService(req.initiator);
-    useri.ActionCreator.set({ id: req.body.email, name: req.body.name });
+    useri.ActionCreator.set({ id: req.body.email, name: req.body.name, ...req.body });
     const user = await useri.create(req.body);
-    user.createPasswordManager({ currentPass: req.body.password });
-    await AuthService.createActivation(user, req);
+
+    const appInfo = { currentPass: req.body.password };
+    appInfo[authSettings.header.database.name] = req.body[authSettings.header.database.name];
+
+    user.createPasswordManager(appInfo);
+    delete appInfo.currentPass;
+
+    await AuthService.createActivation({user, appInfo}, req);
     let token;
     if (!settings.allowAccountActivation) {
       const { id, updatedAt } = user;
       token = await JWTStrategy.sign({ id, updatedAt });
     }
-    delete user.isAdmin;
-
+    
     Response.success(
       res, 201,
       { user, token },

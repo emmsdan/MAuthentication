@@ -1,3 +1,4 @@
+const authSettingSchema = require('../../settings/auth').authSchema;
 const InitiatorSchema = (DataTypes) => {
   return  {
     refTable: {
@@ -21,6 +22,7 @@ const InitiatorSchema = (DataTypes) => {
       type: DataTypes.ENUM(['create', 'update', 'get']),
       allowNull: false,
     },
+    ...authSettingSchema(DataTypes)
   };
 };
 

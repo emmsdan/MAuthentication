@@ -1,3 +1,5 @@
+const authSettingSchema = require('../../settings/auth').authSchema;
+
 const UserSchema = (DataTypes) => {
   return  {
     id: {
@@ -30,6 +32,7 @@ const UserSchema = (DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
+    ...authSettingSchema(DataTypes)
   };
 };
 

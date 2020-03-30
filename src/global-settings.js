@@ -1,6 +1,7 @@
 /* eslint no-undef: 0 */
 
 import path from 'path';
+import { authSettings as authHeaderSettings, authSchema } from '@settings/auth';
 
 const APP_TITLE = 'EmmsDan';
 const APP_URL = process.env.FRONTEND_URL || 'https://emmsdan.com';
@@ -14,6 +15,8 @@ export const locales = {
 
 export const authSettings = {
   allowAccountActivation: false,
+  authSchema,
+  ...authHeaderSettings
 };
 
 export const securityKey = {
@@ -49,6 +52,7 @@ const settings = {
   COMPONENT_DIR: 'modules/',
   BASE_DIR: './src/',
   ROUTEFILE: '.route.js',
+  offlineMode: true,
   ...locales,
   ...authSettings,
   securityKey

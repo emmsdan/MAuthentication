@@ -1,3 +1,4 @@
+const authSettingSchema = require('../../settings/auth').authSchema;
 const PasswordManagerSchema = (DataTypes) => {
   return  {
     id: {
@@ -16,7 +17,8 @@ const PasswordManagerSchema = (DataTypes) => {
     userId: {
       type: DataTypes.UUID,
     },
-    __: { type: DataTypes.STRING }
+    __: { type: DataTypes.STRING },
+    ...authSettingSchema(DataTypes)
   };
 };
 

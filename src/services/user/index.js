@@ -12,16 +12,17 @@ import DBModel from '@service/model';
 
 export default class UserService extends DBModel {
   constructor() {
+    Utils.trace(__filename);
     super();
     this.model = User;
   }
 
-  whereObjectForGetUser(id) {
+  whereObjectForGetUser(id, userId='p') {
     return {
       [Op.or]: [
         { id },
-        { phone: id },
-        { email: id },
+        { phone: [id, userId] },
+        { email: [id, userId] },
       ],
     };
   }

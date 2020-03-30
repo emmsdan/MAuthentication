@@ -61,3 +61,8 @@ export const objectValueToLowerCase = (obj) => {
   });
   return newObject;
 };
+
+export function trace(name) {
+  console.error(name);
+  console.error(new Date().getTime(), '\n\n');
+}
