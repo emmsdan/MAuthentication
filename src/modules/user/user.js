@@ -39,7 +39,7 @@ export async function AllAdminUsers(req, res) {
 export async function getUserInfo(req, res) {
   try {
 
-    const where  = new UserService().whereObjectForGetUser(req.body.username);
+    const where  = new UserService().whereObjectForGetUser(req.body.username  + '');
     const user = await new UserService().findOneRecord({ where: { ...where } }, null);
     if (user) {
       return Response.success(res, 200, user );

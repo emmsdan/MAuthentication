@@ -4,7 +4,6 @@ import routes from '@settings/routes';
 import { UserSchema } from '@schema';
 // import Response from '@response';
 // import AuthService from '@service/auth';
-import { trace } from '@utils/utils';
 
 import { exceptionHandler, joiValidatorHandler, validateExistingUser } from '@middleware/validation';
 import { DataTypes, joify } from '@middleware/datatype';
@@ -18,7 +17,6 @@ export const autoPath = AUTH.path.toLowerCase();
 
 const authRoute = express.Router();
 
-trace(__filename);
 /** ------------------ | Register account | --------------- **/
 const signupSchema = joify(UserSchema(DataTypes), [['password', 'string']], null);
 authRoute.post(

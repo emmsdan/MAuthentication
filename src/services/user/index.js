@@ -1,4 +1,5 @@
 import { Op } from 'sequelize';
+import isUUID from 'validator/lib/isUUID';
 
 import { User } from '@models';
 import * as Utils from '@utils/utils';
@@ -18,12 +19,16 @@ export default class UserService extends DBModel {
   }
 
   whereObjectForGetUser(id, userId='p') {
+    const params = [
+      { phone: [id, userId] },
+      { email: [id, userId] },
+    ];
+    if(isUUID(id)) params.push({ id});
+
+    if (isUUID(userId)) params.push({ id: userId });
+
     return {
-      [Op.or]: [
-        { id },
-        { phone: [id, userId] },
-        { email: [id, userId] },
-      ],
+      [Op.or]: [...params],
     };
   }
 
@@ -49,7 +54,7 @@ export default class UserService extends DBModel {
     try {
       return await new UserService().updateOneRecord({
         where: {
-          ...new UserService().whereObjectForGetUser(User.UserId),
+          ...new UserService().whereObjectForGetUser(User.UserId + ''),
         },
         body: User,
       });
