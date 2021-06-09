@@ -1,0 +1,22 @@
+{
+  "welcome": "Bienvenue sur EmmsDan Auth",
+  "settings": "Réglages",
+
+  "INVALID_TABLE_MODEL": "Modèle de table non valide fourni.",
+  "INVALID_TABLE_ID_FORMAT": "Format d'ID non valide fourni pour la table.",
+  "RECORD_DOES_NOT_EXIST": "L'enregistrement n'existe pas.",
+
+  "userExist": "L'utilisateur existe déjà.",
+  "hiGreeting": "Salut",
+  "helloGreeting": "Bonjour",
+  "createdAccountEmailSMS": "Votre compte a été créé. <b /> Veuillez utiliser le code/lien ci-dessous pour activer votre compte.",
+  "resetPasswordEmail": "Vérifiez votre boîte de réception pour réinitialiser le lien/code.",
+  "createAccountSuccess": "Votre compte a été créé. Veuillez vérifier le compte en suivant le lien envoyé à votre e-mail ou entrez le code PIN.",
+  "createdAccountCodeSMS": "Votre code d'activation est:",
+  "createdAccountActivationURLSMS": "Également actif en utilisant ce lien:",
+
+  "serverError": "Le serveur a rencontré une condition / un problème inattendu qui l'a empêché de répondre à la demande. Réessayez dans quelques minutes ou contactez l'administrateur.",
+
+  "invalidCredentials": "Les informations d'identification fournies ne sont pas valides.",
+  "activationSuccess": "Votre compte a été activé / vérifié."
+}

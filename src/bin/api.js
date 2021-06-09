@@ -1,7 +1,12 @@
 import open from 'open';
 import dotenv from 'dotenv';
 import app from '../app';
+import BeLogger from './logger';
+
 dotenv.config();
+const bLogger = new BeLogger();
+
+app.use(bLogger.use);
 
 // eslint-disable-next-line
 const PORT = process.env.PORT || 3030;
@@ -14,4 +19,10 @@ app.listen(PORT, function () {
   if (process.env.EMMSDAN_STARTED) {
     open(server);
   }
+});
+
+process.on('uncaughtException', (err) => {
+  bLogger.log(err, 'uncaughtException');
+}).on('unhandledRejection', (err) => {
+  bLogger.log(err, 'unhandledRejection');
 });

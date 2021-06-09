@@ -1,9 +1,9 @@
 import { uuid } from 'uuidv4';
 
-import errorCodeFile from '../bin/error.json';
+import errorCodeFile from '@bin/error.json';
 
-import EmailService from './email';
-import SMSService from './sms';
+import EmailService from '@service/messaging/email';
+import SMSService from '@service/messaging/sms';
 
 /**
 * @author EmmsDan <emmsdan.inc@gmail.com>
@@ -70,6 +70,27 @@ class NotificationService {
     }
   }
 
+  unsubcribe(channels, cb=()=>{}){
+    try {
+      if(!Array.isArray(channels)){
+        throw Error('Invalid ');
+      }
+      let addedCount = 0;
+      for(let channel of channels) {
+        if (this.__channel.has(channel)) {
+          this.__subscribedService.delete(channel);
+          addedCount++;
+        }
+      }
+      cb(
+        addedCount ? this[__errorCode].failedUpdate : null, this.getSubcribedServices()
+      );
+      return this.getSubcribedServices();
+    } catch (e) {
+      return e;
+    }
+  }
+
   async broadCast(message, user=null) {
     if (!user || !message) return Error(this[__errorCode].invalidUser);
     for (let channel of this.getSubcribedServices()) {
@@ -78,16 +99,27 @@ class NotificationService {
   }
 
   async ['email'](message, email) {
+    const fields = this.__mail.getField({
+      contentArea: message?.body || message,
+      contentContinue: message?.extend || '',
+      code: message?.token || '',
+      buttonText: message?.btnText || false,
+      buttonURl: message?.btnUrl || false
+    });
+
+    const subject = fields.contentContinue?.split('').splice(0, 20).join('') || fields.contentArea?.split('').splice(0, 20).join('') + '...';
+    await this.__mail.useEmailTemplate(fields, this.__broadCastType);
     const sent = await this.__mail.send({
       to: email,
-      subject: message.split('').splice(0, 20).join('') + '...',
-      html: `<h1> EmmsDan Notification</h1> <p> ${message} </p>`
+      subject,
+      html: this.__mail.__emailMessage
     });
     return (sent === 'message' ? sent : this.__mail.getError());
   }
 
   async ['sms'](message, phone) {
-    await SMSService.send({ phone, body: message});
+    const send = await SMSService.send({ phone, body: message});
+    return send;
   }
 
   ls() {

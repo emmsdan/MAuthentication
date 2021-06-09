@@ -1,6 +1,34 @@
 {
   "presets": [
     ["@babel/preset-env",
-    { "useBuiltIns": "usage" }]
-  ]
+    { "useBuiltIns": "usage" }],
+  ],
+  "plugins": [[
+    "module-resolver",
+    {
+      "root": [
+        "./"
+      ],
+      "alias": {
+        "@bin": "./src/bin/",
+        "@tests": "./src/api/tests",
+        "@controller": "./src/modules",
+        "@module": "./src/modules",
+        "@service": "./src/services",
+        "@emailTemplate": "./src/static/template/email",
+        "@middleware": "./src/middleware",
+        "@utils": "./src/utils",
+        "@response": "./src/utils/response",
+        "@root": "./src",
+        "@global_settings": "./src/global-settings",
+        "@settings": "./src/settings",
+        "@languges": "./src/settings/locales/locales",
+        "@lang": "./src/settings/locales",
+        "@schema": "./src/database/schema",
+        "@models": "./src/database/models",
+        "@app": "./src/app",
+        "@database": "./src/database"
+      }
+    }
+  ]]
 }

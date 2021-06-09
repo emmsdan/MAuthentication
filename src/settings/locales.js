@@ -17,7 +17,7 @@
 
 import fileSystem from 'fs';
 
-import { locales } from '../settings';
+import { locales } from '@global_settings';
 
 /**                                                  /
 * ---------------- SETUP PRIVATE VAR -----------------*
@@ -93,13 +93,13 @@ class LanguageService {
   setCurrentLocale(language = 'en') {
     this.setLang(language);
   }
-  
+
   /**                                                  /
   * ---------------- GET TRANSLATED TEXT---------------*
   * @translate('settings') => Réglages (french)
   */
-  translate(key, defaultValue='s') {
-    return this[__language][key] || defaultValue;
+  translate(key, defaultValue=null) {
+    return this[__language][key] || defaultValue || key;
   }
 
   /**                                                  /

@@ -1,0 +1,22 @@
+{
+  "welcome": "Welcome to EmmsDan Auth",
+  "settings": "Settings",
+
+  "INVALID_TABLE_MODEL": "Invalid table model provided.",
+  "INVALID_TABLE_ID_FORMAT": "Invalid ID format provided for table.",
+  "RECORD_DOES_NOT_EXIST": "Record does not exist.",
+
+  "userExist": "User already exist.",
+  "hiGreeting": "Hi",
+  "helloGreeting": "Hello",
+  "createdAccountEmailSMS": "Your account has been created. Please, use the code/link below, to activate your account.",
+  "resetPasswordEmail": "Check your inbox for reset link/code.",
+  "createdAccountCodeSMS": "Your activation code is:",
+  "createdAccountActivationURLSMS": "Your Activation link:",
+  "createAccountSuccess": "Your account has been created. Please, verify account by following the link sent to your email, or enter pin.",
+
+  "serverError": "The server encountered an unexpected condition/issue that prevented it from fulfilling the request. Try again in few mins, or contact the Administrator.",
+
+  "invalidCredentials": "Credentials provided are invalid.",
+  "activationSuccess": "Your account has been activated/verified."
+}

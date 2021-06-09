@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
-import settings from './settings';
+import settings from '@global_settings';
 
-const { API_ENTRY_POINT, BASE_DIR, COMPONENT_DIR } = settings;
+const { API_ENTRY_POINT, BASE_DIR, COMPONENT_DIR, ROUTEFILE } = settings;
 
-const isRoute = (file) => file.toLowerCase().endsWith('.route.js');
+const isRoute = (file) => file.toLowerCase().endsWith(ROUTEFILE);
 function loadApi(dirPath, app) {
   fs.readdir(BASE_DIR + dirPath, (err, files) => {
     for (const file of files) {
@@ -15,6 +15,7 @@ function loadApi(dirPath, app) {
       } else if (isRoute(file)) {
         const filename = dirPath + path.basename(file);
         const route = require(`./${filename}`);
+        app.use(`${API_ENTRY_POINT}/${route.autoPath}`, route.default);
         app.use(`${API_ENTRY_POINT}/${route.autoPath}`, route.default);
       }
     }

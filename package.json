@@ -4,23 +4,20 @@
   "description": "basic authentication for emmsdan global ",
   "main": "app.js",
   "scripts": {
-    "start": "node dist/app.js",
+    "start": "node dist/bin/api.js",
     "start:dev": "webpack-dev-server",
-    "test": "jest ./src/**",
+    "test": "jest --coverage --colors",
     "dev": "nodemon --exec babel-node -- src/bin/api.js",
-    "build": "rimraf dist && ./node_modules/.bin/babel src -d dist",
-    "lint": "eslint ./src/**.js ./src/**/**.js --fix"
+    "build": "rimraf dist && ./node_modules/.bin/babel src -d dist --copy-files",
+    "lint": "eslint './src/**/?(*).js?(x)' --fix",
+    "migrate:undo": "node_modules/.bin/sequelize db:migrate:undo:all",
+    "db:migrate": "node_modules/.bin/sequelize db:migrate",
+    "db:reset": "npm run migrate:undo && npm run db:migrate"
   },
   "repository": "https://gitlab.com/emmsdan/authententication.git",
   "author": "Emmanuel Daniel <ecomje@gmail.com>",
   "license": "MIT",
   "private": true,
-  "jest": {
-    "testEnvironment": "node",
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
-    ]
-  },
   "lint-staged": {
     "src/**/*.{js}": [
       "eslint . --fix",
@@ -37,14 +34,29 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.8.4",
+    "@hapi/joi": "^17.1.0",
     "aws-sdk": "^2.615.0",
+    "bcrypt": "^3.0.8",
+    "bitly": "^6.1.0",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.1.0",
     "nodemailer": "^6.4.2",
     "nodemailer-mock": "^1.4.4",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "open": "^7.0.2",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "pg": "^7.18.2",
     "rimraf": "^3.0.2",
+    "sequelize": "^5.21.4",
+    "sequelize-cli": "^5.5.1",
+    "twing": "^4.0.2",
     "uuidv4": "^6.0.2",
     "validator": "^12.2.0"
   },
@@ -56,6 +68,7 @@
     "@babel/polyfill": "^7.8.3",
     "@babel/preset-env": "^7.8.4",
     "babel-eslint": "^10.0.3",
+    "babel-plugin-module-resolver": "^4.0.0",
     "eslint": "^6.8.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jest": "^23.7.0",

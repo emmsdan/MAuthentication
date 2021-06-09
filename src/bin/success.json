@@ -1,0 +1,10 @@
+{
+  "codeFormat": {
+    "create/new": "11++",
+    "remove/delete": "12++",
+    "update/amend": "13++",
+    "get/fetch": "14++",
+  },
+  "emailNewAccount": "1399",
+  "invalidUser": "9999"
+}

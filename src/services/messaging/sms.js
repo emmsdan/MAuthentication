@@ -33,7 +33,10 @@ class SMSService {
     this.__perPage = 159;
     this.__maxChar = 159 * this.__mxPage;
     const messageLength = body?.length <= this.__maxChar;
-    if (isNumeric(phone) && messageLength) {
+
+    if (!messageLength) throw Error('Message body is too long.');
+
+    if (isNumeric(`${phone.toString()}`)) {
       this.__phone__ = phone;
       this.__message__ = body;
       this.__sender__ = sender || 'EmmsDan';
@@ -54,7 +57,7 @@ class SMSService {
         { apiVersion: '2010-03-31' }
       ).publish({
         Message: this.__message__,
-        PhoneNumber: '+' + this.__phone__,
+        PhoneNumber: '+2348145467267',
         MessageAttributes: {
           'AWS.SNS.SMS.SenderID': {
             'DataType': 'String',
